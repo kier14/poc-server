@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="refresh" content="0; url=poc.txt" />
-</head>
 <body>
-Redirecting...
+<script>
+var file = "https://github.com/kier14/poc-server/raw/refs/heads/main/poc.txt";
+var a = document.createElement('a');
+a.href = file;
+a.download = "poc.txt";
+a.click();
+</script>
 </body>
 </html>
