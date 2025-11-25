@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html>
+<head><meta charset="utf-8"></head>
 <body>
 <script>
-var file = "https://raw.githubusercontent.com/kier14/poc-server/refs/heads/main/poc.txt";
-var a = document.createElement('a');
-a.href = file;
-a.download = "poc.txt";
-a.click();
+(async function(){
+  try {
+    // Correct raw.githubusercontent URL for your repo/branch/file:
+    // https://raw.githubusercontent.com/<USER>/<REPO>/<BRANCH>/poc.txt
+    const rawUrl = "https://raw.githubusercontent.com/kier14/poc-server/main/poc.txt";
+
+    const res = await fetch(rawUrl);
+    if (!res.ok) throw new Error("fetch failed: " + res.status);
+
+    const text = await res.text();
+    const blob = new Blob([text], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "poc.txt";           // suggested filename
+    document.body.appendChild(a);     // required for some browsers
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error(err);
+    document.body.innerText = "Download failed: " + err;
+  }
+})();
 </script>
 </body>
 </html>
