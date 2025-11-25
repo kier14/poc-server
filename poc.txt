@@ -1,0 +1,1 @@
+This is a harmless Proof of Concept file used to demonstrate an Open Redirect vulnerability.
